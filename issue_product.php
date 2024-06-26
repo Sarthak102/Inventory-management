@@ -1,8 +1,8 @@
 <?php
 include 'db.php';
 
-// Fetch all products for the dropdown
-$product_result = $conn->query("SELECT id, name FROM products");
+// Fetch all categories for the dropdown
+$category_result = $conn->query("SELECT id, name FROM categories");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_id = $_POST['product_id'];
@@ -31,17 +31,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Issue Product</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#category_id').change(function() {
+                var category_id = $(this).val();
+                $.ajax({
+                    url: 'fetch_products.php',
+                    type: 'POST',
+                    data: {category_id: category_id},
+                    success: function(data) {
+                        $('#product_id').html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
     <div class="container">
         <h1>Issue Product</h1>
         <form method="POST">
+            <label for="category_id">Category:</label>
+            <select name="category_id" id="category_id" required>
+                <option value="">Select Category</option>
+                <?php while ($category = $category_result->fetch_assoc()): ?>
+                    <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                <?php endwhile; ?>
+            </select><br>
             <label for="product_id">Product Name:</label>
             <select name="product_id" id="product_id" required>
-                <?php while ($product = $product_result->fetch_assoc()): ?>
-                    <option value="<?php echo $product['id']; ?>"><?php echo $product['name']; ?></option>
-                <?php endwhile; ?>
+                <option value="">Select Product</option>
             </select><br>
             <label for="issued_quantity">Issued Quantity:</label>
             <input type="number" name="issued_quantity" id="issued_quantity" required><br>
