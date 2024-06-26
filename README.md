@@ -70,12 +70,19 @@ CREATE TABLE vendors (
     contact_info TEXT
 );
 
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     available_quantity INT NOT NULL,
     vendor_id INT,
-    FOREIGN KEY (vendor_id) REFERENCES vendors(id)
+    category_id INT,
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
 CREATE TABLE inventory_log (
