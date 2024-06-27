@@ -15,17 +15,17 @@ This project is an Inventory Management System built with PHP, MySQL, HTML, and 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Sarthak102/inventory-management-system.git
-   cd inventory-management-system
+   git clone https://github.com/Sarthak102/Inventory-management.git
+   cd Inventory-management
    ```
 
 2. **Set up the database:**
 
-   - Create a database named `inventory`:
+   - Create a database named `inventory_db`:
 
    ```sql
-   CREATE DATABASE inventory;
-   USE inventory;
+   CREATE DATABASE inventory_db;
+   USE inventory_db;
    ```
 
 3. **Configure the database connection:**
@@ -57,19 +57,13 @@ This project is an Inventory Management System built with PHP, MySQL, HTML, and 
 
 5. **Access the application:**
 
-   - Open your web browser and go to `http://localhost/inventory-management-system`.
+   - Open your web browser and go to `http://localhost/Inventory-management`.
 
 ## Database Tables
 
 Execute the following SQL commands to set up the necessary tables in your MySQL database:
 
 ```sql
-CREATE TABLE vendors (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    contact_info TEXT
-);
-
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
@@ -79,9 +73,7 @@ CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     available_quantity INT NOT NULL,
-    vendor_id INT,
     category_id INT,
-    FOREIGN KEY (vendor_id) REFERENCES vendors(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
@@ -101,15 +93,18 @@ CREATE TABLE inventory_log (
 ```
 inventory-management-system/
 │
+├── font                  # Fonts Directory
 ├── db.php                # Database connection file
 ├── navbar.php            # Navbar component
-├── add_vendor.php        # Add vendor form
+├── fpdf.php              # PDF generation file
+├── add_category.php      # Add category form
 ├── add_product.php       # Add product form
+├── fetch_products.php    # Fetch product
 ├── issue_product.php     # Issue product form
 ├── view_products.php     # View available products
 ├── generate_report.php   # Generate inventory reports
 ├── styles.css            # CSS styles
-├── inventory.sql         # SQL file to set up the database
+├── index.php             # Home page
 └── README.md             # Project readme
 ```
 
@@ -119,25 +114,27 @@ inventory-management-system/
 ![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/1c312692-4954-497c-b620-021edd2b501f)
 
 
-### Add Vendor
-![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/a5b32569-5693-4dc7-a565-ee567dd09ded)
+### Add Category
+![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/f97dcea5-0178-4ddd-9dab-b78880c83ab9)
 
 
 ### Add Product
-![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/fa4d5768-c111-47ff-9b66-0ed380bb981e)
+![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/0ce97aba-bad8-40f7-9594-2b40abaff176)
+
 
 ### Issue Products
-![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/ac1499da-1d8f-48c3-9c0b-c5685057f475)
+![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/2569a745-d9ec-40ef-8afc-f0c8f90ed91b)
 
 
 ### View Products
-![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/66d815cd-0c52-4262-8501-3d50c124920a)
+![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/6369e4cb-0dd0-4e54-a1a1-53b035934d16)
 
 
 ### Generate Report
 ![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/4d1eb7ca-ede9-4ae9-8bf6-ac1c90e9e6d0)
 
-![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/863590b3-c521-4d33-9111-6492d3d328ba)
+![image](https://github.com/Sarthak102/Inventory-management/assets/91387298/deead9cc-2194-4af0-b290-528befd09714)
+
 
 
 
