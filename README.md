@@ -1,11 +1,10 @@
 # Inventory Management System
 
-This project is an Inventory Management System built with PHP, MySQL, HTML, and CSS. It allows users to add vendors, add products, issue products, view available products, and generate inventory reports.
+This project is an Inventory Management System built with PHP, MySQL, HTML, and CSS. It allows users to add category, add products, issue products, view available products, and generate monthly inventory reports.
 
 ## Features
 
-- Add vendors
-- Add products associated with vendors
+- Add products associated with categories
 - Issue products
 - View available products with the ability to increment quantities
 - Generate inventory reports
