@@ -253,6 +253,26 @@ form input[type="submit"]:hover {
     z-index: 1000;
 }
 
+
+/* General popup styles */
+#popup1 {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Match the border color */
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+#popup-content1 {
+    margin: 0;
+}
+
 /* Styles for the table */
 .styled-table {
     width: 100%;

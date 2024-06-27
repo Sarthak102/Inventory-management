@@ -7,7 +7,7 @@
 <body>
     <?php include 'navbar.php'; ?>
     <div class="container">
-        <h1>Welcome to Inventory Management System</h1>
+        <h1>Welcome to Consumables Management System</h1>
         <p>Select an option from the navigation bar to proceed.</p>
     </div>
 </body>

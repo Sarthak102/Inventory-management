@@ -31,21 +31,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Issue Product</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#category_id').change(function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    url: 'fetch_products.php',
-                    type: 'POST',
-                    data: {category_id: category_id},
-                    success: function(data) {
-                        $('#product_id').html(data);
-                    }
-                });
+        // Fetch products based on the selected category
+        function fetchProducts(categoryId) {
+            const formData = new FormData();
+            formData.append('category_id', categoryId);
+
+            fetch('fetch_products.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                const productSelect = document.getElementById('product_id');
+                productSelect.innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
             });
-        });
+        }
     </script>
 </head>
 <body>
@@ -54,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h1>Issue Product</h1>
         <form method="POST">
             <label for="category_id">Category:</label>
-            <select name="category_id" id="category_id" required>
+            <select name="category_id" id="category_id" required onchange="fetchProducts(this.value)">
                 <option value="">Select Category</option>
                 <?php while ($category = $category_result->fetch_assoc()): ?>
                     <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
@@ -62,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </select><br>
             <label for="product_id">Product Name:</label>
             <select name="product_id" id="product_id" required>
-                <option value="">Select Product</option>
+                <option value="">Select a category first</option>
             </select><br>
             <label for="issued_quantity">Issued Quantity:</label>
             <input type="number" name="issued_quantity" id="issued_quantity" required><br>

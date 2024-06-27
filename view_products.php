@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
 }
 
 // Fetch all products
-$product_result = $conn->query("SELECT p.id, p.name, p.available_quantity, v.name AS vendor_name FROM products p JOIN vendors v ON p.vendor_id = v.id");
+$product_result = $conn->query("SELECT id, name, available_quantity FROM products");
 
 // Fetch products with quantity below the threshold
 $low_quantity_result = $conn->query("SELECT id, name, available_quantity FROM products WHERE available_quantity < $threshold");
@@ -47,10 +47,10 @@ while ($product = $low_quantity_result->fetch_assoc()) {
             popupContent.innerHTML = content;
             popup.style.display = 'block';
 
-            // Hide the popup after 5 seconds
+            // Hide the popup after 3 seconds
             setTimeout(function() {
                 popup.style.display = 'none';
-            }, 5000);
+            }, 3000);
         }
 
         // Show the popup if there are low quantity products
@@ -102,22 +102,6 @@ while ($product = $low_quantity_result->fetch_assoc()) {
             });
         }
     </script>
-    <style>
-        /* Styles for the popup */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 20px;
-            background-color: #f44336;
-            color: white;
-            border: 1px solid #f44336;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -153,7 +137,6 @@ while ($product = $low_quantity_result->fetch_assoc()) {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Available Quantity</th>
-                        <th>Vendor</th>
                         <th>Add Quantity</th>
                     </tr>
                 </thead>
@@ -161,13 +144,12 @@ while ($product = $low_quantity_result->fetch_assoc()) {
                     <?php if (isset($_GET['product_id']) && $_GET['product_id'] != ''): ?>
                         <?php
                         $product_id = $_GET['product_id'];
-                        $product = $conn->query("SELECT p.id, p.name, p.available_quantity, v.name AS vendor_name FROM products p JOIN vendors v ON p.vendor_id = v.id WHERE p.id = $product_id")->fetch_assoc();
+                        $product = $conn->query("SELECT id, name, available_quantity FROM products WHERE id = $product_id")->fetch_assoc();
                         ?>
                         <tr>
                             <td><?php echo $product['id']; ?></td>
                             <td><?php echo $product['name']; ?></td>
                             <td><?php echo $product['available_quantity']; ?></td>
-                            <td><?php echo $product['vendor_name']; ?></td>
                             <td>
                                 <form method="POST" action="view_products.php" onsubmit="submitForm(event, this)">
                                     <input type="hidden" name="ajax" value="1">
@@ -183,7 +165,6 @@ while ($product = $low_quantity_result->fetch_assoc()) {
                                 <td><?php echo $product['id']; ?></td>
                                 <td><?php echo $product['name']; ?></td>
                                 <td><?php echo $product['available_quantity']; ?></td>
-                                <td><?php echo $product['vendor_name']; ?></td>
                                 <td>
                                     <form method="POST" action="view_products.php" onsubmit="submitForm(event, this)">
                                         <input type="hidden" name="ajax" value="1">
